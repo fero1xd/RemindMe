@@ -24,12 +24,12 @@ const DEV_GUILD_ID = process.env.DEV_GUILD_ID!;
 const client = new Client({ intents: [IntentsBitField.Flags.Guilds] });
 const commands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 registerCommands(client, commands);
-redisManager.runPeningReminders(client);
 
 const rest = new REST({ version: '10' }).setToken(BOT_TOKEN);
 
 (async () => {
   try {
+    await redisManager.runPeningReminders(client);
     console.log(
       `Started refreshing ${commands.length} application (/) commands.`
     );
